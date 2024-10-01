@@ -1,5 +1,4 @@
-// MainActivity.kt
-package com.example.myapplicationtest
+package com.example.simpletipcalculatorapp
 
 import android.os.Bundle
 import android.widget.Button

@@ -1,35 +1,49 @@
-package com.example.simpletipcalculatorapp
+// MainActivity.kt
+package com.example.myapplicationtest
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.example.simpletipcalculatorapp.databinding.ActivityMainBinding
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.activity.ComponentActivity
+import com.example.simpletipcalculatorapp.R
 
-class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        val billAmount = findViewById<EditText>(R.id.bill_amount_edit_text)
+        val buttonTip10Percentage = findViewById<Button>(R.id.tip_10_button)
+        val buttonTip15Percentage = findViewById<Button>(R.id.tip_15_button)
+        val buttonTip20Percentage = findViewById<Button>(R.id.tip_20_button)
+        val totalCost = findViewById<TextView>(R.id.total_cost_text_view)
+        val totalTipCost = findViewById<TextView>(R.id.tip_amount_text_view)
 
-        val navView: BottomNavigationView = binding.navView
+        buttonTip10Percentage.setOnClickListener {
+            calculateTip(billAmount, totalTipCost, totalCost, 0.1)
+        }
+        buttonTip15Percentage.setOnClickListener {
+            calculateTip(billAmount, totalTipCost, totalCost, 0.15)
+        }
+        buttonTip20Percentage.setOnClickListener {
+            calculateTip(billAmount, totalTipCost, totalCost, 0.2)
+        }
+    }
+}
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+// calculateTip function outside MainActivity class
+fun calculateTip(billAmount: EditText, totalTipCost: TextView, totalCost: TextView, tipPercentage: Double) {
+    val billAmountText = billAmount.text.toString()
+    if (billAmountText.isEmpty()) {
+        return
+    } else {
+        val billAmountTotal = billAmountText.toDouble()
+        val tipAmount = billAmountTotal * tipPercentage
+        val totalAllCost = billAmountTotal + tipAmount
+
+        totalTipCost.text = "Tip Amount: $" + String.format("%.2f", tipAmount)
+        totalCost.text = "Total Cost: $" + String.format("%.2f", totalAllCost)
     }
 }

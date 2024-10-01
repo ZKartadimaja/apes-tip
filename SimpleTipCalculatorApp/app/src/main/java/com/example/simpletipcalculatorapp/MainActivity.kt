@@ -42,7 +42,7 @@ fun calculateTip(billAmount: EditText, totalTipCost: TextView, totalCost: TextVi
         val tipAmount = billAmountTotal * tipPercentage
         val totalAllCost = billAmountTotal + tipAmount
 
-        totalTipCost.text = "Tip Amount: $" + String.format("%.2f", tipAmount)
-        totalCost.text = "Total Cost: $" + String.format("%.2f", totalAllCost)
+        totalTipCost.text = "$" + String.format("%.2f", tipAmount)
+        totalCost.text = "$" + String.format("%.2f", totalAllCost)
     }
 }

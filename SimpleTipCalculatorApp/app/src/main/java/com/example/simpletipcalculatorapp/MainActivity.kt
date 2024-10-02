@@ -22,28 +22,14 @@ class MainActivity : ComponentActivity() {
         val totalTipCost = findViewById<TextView>(R.id.tip_amount_text_view)
 
         buttonTip10Percentage.setOnClickListener {
-            calculateTip(billAmount, totalTipCost, totalCost, 0.1)
+            TipService.calculateTip(billAmount, totalTipCost, totalCost, 0.1)
         }
         buttonTip15Percentage.setOnClickListener {
-            calculateTip(billAmount, totalTipCost, totalCost, 0.15)
+            TipService.calculateTip(billAmount, totalTipCost, totalCost, 0.15)
         }
         buttonTip20Percentage.setOnClickListener {
-            calculateTip(billAmount, totalTipCost, totalCost, 0.2)
+            TipService.calculateTip(billAmount, totalTipCost, totalCost, 0.2)
         }
     }
 }
 
-// calculateTip function outside MainActivity class
-fun calculateTip(billAmount: EditText, totalTipCost: TextView, totalCost: TextView, tipPercentage: Double) {
-    val billAmountText = billAmount.text.toString()
-    if (billAmountText.isEmpty()) {
-        Toast.makeText(billAmount.context, "Please Input Your Bill", Toast.LENGTH_SHORT).show()
-    } else {
-        val billAmountTotal = billAmountText.toDouble()
-        val tipAmount = billAmountTotal * tipPercentage
-        val totalAllCost = billAmountTotal + tipAmount
-
-        totalTipCost.text = "$" + String.format("%.2f", tipAmount)
-        totalCost.text = "$" + String.format("%.2f", totalAllCost)
-    }
-}

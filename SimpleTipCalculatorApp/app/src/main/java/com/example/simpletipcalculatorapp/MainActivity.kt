@@ -1,10 +1,10 @@
-// MainActivity.kt
-package com.example.myapplicationtest
+package com.example.simpletipcalculatorapp
 
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import com.example.simpletipcalculatorapp.R
 
@@ -22,28 +22,14 @@ class MainActivity : ComponentActivity() {
         val totalTipCost = findViewById<TextView>(R.id.tip_amount_text_view)
 
         buttonTip10Percentage.setOnClickListener {
-            calculateTip(billAmount, totalTipCost, totalCost, 0.1)
+            TipService.calculateTip(billAmount, totalTipCost, totalCost, 0.1)
         }
         buttonTip15Percentage.setOnClickListener {
-            calculateTip(billAmount, totalTipCost, totalCost, 0.15)
+            TipService.calculateTip(billAmount, totalTipCost, totalCost, 0.15)
         }
         buttonTip20Percentage.setOnClickListener {
-            calculateTip(billAmount, totalTipCost, totalCost, 0.2)
+            TipService.calculateTip(billAmount, totalTipCost, totalCost, 0.2)
         }
     }
 }
 
-// calculateTip function outside MainActivity class
-fun calculateTip(billAmount: EditText, totalTipCost: TextView, totalCost: TextView, tipPercentage: Double) {
-    val billAmountText = billAmount.text.toString()
-    if (billAmountText.isEmpty()) {
-        return
-    } else {
-        val billAmountTotal = billAmountText.toDouble()
-        val tipAmount = billAmountTotal * tipPercentage
-        val totalAllCost = billAmountTotal + tipAmount
-
-        totalTipCost.text = "Tip Amount: $" + String.format("%.2f", tipAmount)
-        totalCost.text = "Total Cost: $" + String.format("%.2f", totalAllCost)
-    }
-}

@@ -50,3 +50,4 @@ fun calculateTip(billAmount: EditText,
         totalCost.text = "$" + String.format("%.2f", totalAllCost)
     }
 }
+

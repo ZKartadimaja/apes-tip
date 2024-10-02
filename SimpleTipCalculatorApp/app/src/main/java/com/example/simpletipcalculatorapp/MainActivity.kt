@@ -20,24 +20,27 @@ class MainActivity : ComponentActivity() {
         val buttonTip20Percentage = findViewById<Button>(R.id.tip_20_button)
         val totalCost = findViewById<TextView>(R.id.total_cost_text_view)
         val totalTipCost = findViewById<TextView>(R.id.tip_amount_text_view)
+        val errorMessage = findViewById<TextView>(R.id.textView2)
 
         buttonTip10Percentage.setOnClickListener {
-            calculateTip(billAmount, totalTipCost, totalCost, 0.1)
+            calculateTip(billAmount, totalTipCost, totalCost, 0.1, errorMessage)
         }
         buttonTip15Percentage.setOnClickListener {
-            calculateTip(billAmount, totalTipCost, totalCost, 0.15)
+            calculateTip(billAmount, totalTipCost, totalCost, 0.15, errorMessage)
         }
         buttonTip20Percentage.setOnClickListener {
-            calculateTip(billAmount, totalTipCost, totalCost, 0.2)
+            calculateTip(billAmount, totalTipCost, totalCost, 0.2, errorMessage)
         }
     }
 }
 
 // calculateTip function outside MainActivity class
-fun calculateTip(billAmount: EditText, totalTipCost: TextView, totalCost: TextView, tipPercentage: Double) {
+fun calculateTip(billAmount: EditText,
+                 totalTipCost: TextView, totalCost: TextView,
+                 tipPercentage: Double, errorMessageText: TextView) {
     val billAmountText = billAmount.text.toString()
     if (billAmountText.isEmpty()) {
-        Toast.makeText(billAmount.context, "Please Input Your Bill", Toast.LENGTH_SHORT).show()
+        errorMessageText.setText("Please Input Your Bill")
     } else {
         val billAmountTotal = billAmountText.toDouble()
         val tipAmount = billAmountTotal * tipPercentage
